@@ -11,6 +11,9 @@ export const Products = ({ products }) => {
                 <th>Наименование</th>
                 <th>Количество</th>
                 <th>Цена</th>
+                <th>Скидка</th>
+                <th>Дата производства</th>
+                <th>Срок хранения</th>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +23,9 @@ export const Products = ({ products }) => {
                         <td>{product.name}</td>
                         <td>{product.count}</td>
                         <td>{product.price}</td>
+                        <td>{product.discount}</td>
+                        <td>{product.dateOfManufacture}</td>
+                        <td>{product.shelfLife}</td>
                     </tr>
                 )
             })}
