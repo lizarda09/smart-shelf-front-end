@@ -3,10 +3,11 @@ import {useHttp} from "../hooks/http.hook";
 import {AuthContext} from "../context/AuthContext";
 import {Loader} from "../components/Loader";
 import {NavLink} from "react-router-dom";
+import {Users} from "../components/Users";
 
 export const UsersPage = () => {
     const { request, loading } = useHttp();
-    const [ users, setUsers ] = useState([]);
+    const [ usersArr, setUsersArr ] = useState([]);
     const { token } = useContext(AuthContext);
 
 
@@ -15,8 +16,8 @@ export const UsersPage = () => {
             const userList = await request('/api/user', 'GET', null, {
                 Authorization: `Bearer ${ token }`
             });
-            setUsers(userList);
-            console.log(users)
+            setUsersArr(userList.users);
+            console.log(usersArr)
         } catch (e){
             console.log(e);
         }
@@ -32,7 +33,8 @@ export const UsersPage = () => {
 
     return (
         <>
-            <NavLink to="/addUser"><button className="btn">Добавить нового пользователя</button></NavLink>
+            <h3 className="center">Пользователи</h3>
+            { !loading && usersArr && <Users users={usersArr}/>}
         </>
     )
 }

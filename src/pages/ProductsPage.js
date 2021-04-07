@@ -4,9 +4,11 @@ import {AuthContext} from "../context/AuthContext";
 import {Products} from "../components/Products";
 import {Loader} from "../components/Loader";
 import {NavLink} from "react-router-dom";
+import {useMessage} from "../hooks/message.hook";
 
 export const ProductsPage = () => {
-    const { request, loading } = useHttp();
+    const message = useMessage();
+    const { loading, error, request, clearError } = useHttp();
     const [ productsArr, setProductsArr ] = useState([]);
     const { token } = useContext(AuthContext);
 
@@ -27,14 +29,20 @@ export const ProductsPage = () => {
         getProductsList()
     }, [getProductsList]);
 
+    useEffect(() => {
+        message(error);
+        clearError();
+    }, [error, message, clearError]);
+
     if (loading) {
         return <Loader />
     }
 
        return (
            <>
-               { !loading && productsArr && <Products products={productsArr}/>}
-               <NavLink to="/addProduct"><button className="btn">Добавить продукт</button></NavLink>
+               <h3 className="center">Продукты</h3>
+               { !loading && productsArr && <Products products={productsArr} getProductsList={getProductsList}/>}
+               <NavLink to="/addProduct" ><button className="btn">Добавить продукт</button></NavLink>
            </>
        )
 }

@@ -1,10 +1,12 @@
-import React, {useContext, useState, useHistory} from 'react';
+import React, {useContext, useState} from 'react';
 import {useHttp} from "../hooks/http.hook";
 import {AuthContext} from "../context/AuthContext";
+import {useHistory} from "react-router-dom";
 
 export const AddProduct = () => {
+    const history = useHistory();
     const [form, setForm] = useState({
-        name: '', price: '', phone: '', discount: '', dateOfManufacture: '', shelfLife: ''
+        name: '', price: '', count: '', discount: '', dateOfManufacture: '', shelfLife: ''
     });
     const { token } = useContext(AuthContext);
     const { loading, error, request, clearError } = useHttp();
@@ -19,6 +21,7 @@ export const AddProduct = () => {
                 Authorization: `Bearer ${ token }`
             });
             console.log(data);
+            history.push('/product');
         } catch (e) {}
     };
 
@@ -31,27 +34,27 @@ export const AddProduct = () => {
                         <div>
                             <div className="input-field">
                                 <input id="name" onChange={changeHandler} name="name" type="text" />
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name">Название</label>
                             </div>
                             <div className="input-field">
                                 <input id="price" onChange={changeHandler} name="price" type="text" />
-                                <label htmlFor="price">Price</label>
+                                <label htmlFor="price">Цена</label>
                             </div>
                             <div className="input-field">
                                 <input id="count" onChange={changeHandler} name="count" type="text" />
-                                <label htmlFor="count">Count</label>
+                                <label htmlFor="count">Количество</label>
                             </div>
                             <div className="input-field">
                                 <input id="discount" onChange={changeHandler} name="discount" type="text" />
-                                <label htmlFor="discount">Discount</label>
+                                <label htmlFor="discount">Скидка</label>
                             </div>
                             <div className="input-field">
                                 <input id="dateOfManufacture" onChange={changeHandler} name="dateOfManufacture" type="text" />
-                                <label htmlFor="dateOfManufacture">Date of manufacture</label>
+                                <label htmlFor="dateOfManufacture">Дата производства</label>
                             </div>
                             <div className="input-field">
                                 <input id="shelfLife" onChange={changeHandler} name="shelfLife" type="text" />
-                                <label htmlFor="shelfLife">Shelf life</label>
+                                <label htmlFor="shelfLife">Срок хранения (в часах)</label>
                             </div>
                         </div>
                     </div>
