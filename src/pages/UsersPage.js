@@ -34,7 +34,7 @@ export const UsersPage = () => {
     return (
         <>
             <h3 className="center">Пользователи</h3>
-            { !loading && usersArr && <Users users={usersArr}/>}
+            { !loading && usersArr && <Users users={usersArr} />}
         </>
     )
 }

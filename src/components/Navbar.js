@@ -20,6 +20,7 @@ export const Navbar = () => {
                     <li><NavLink to="/product">Продукты</NavLink></li>
                     <li><NavLink to="/user">Пользователи</NavLink></li>
                     <li><NavLink to="/shelf">Полки</NavLink></li>
+                    <li><NavLink to="/sale">Продажи</NavLink></li>
                     <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
                 </ul>
             </div>

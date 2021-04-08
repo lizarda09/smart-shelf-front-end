@@ -3,7 +3,7 @@ import React from 'react';
 export const ShelvesPage = () => {
     return (
         <div>
-            <h1>Shelves Page</h1>
+            <h3 className="center">Полки</h3>
         </div>
     )
 }

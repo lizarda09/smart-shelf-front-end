@@ -1,33 +1,33 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useHttp} from "../hooks/http.hook";
 import {AuthContext} from "../context/AuthContext";
-import {Products} from "../components/Products";
 import {Loader} from "../components/Loader";
 import {NavLink} from "react-router-dom";
 import {useMessage} from "../hooks/message.hook";
+import {Sales} from "../components/Sales";
 
-export const ProductsPage = () => {
+export const SalesPage = () => {
     const message = useMessage();
     const { loading, error, request, clearError } = useHttp();
-    const [ productsArr, setProductsArr ] = useState([]);
+    const [ salesArr, setSalesArr ] = useState([]);
     const { token } = useContext(AuthContext);
 
 
-    const getProductsList = useCallback(async () => {
+    const getSalesList = useCallback(async () => {
         try {
-            const productList = await request('/api/product', 'GET', null, {
+            const salesList = await request('/api/sale', 'GET', null, {
                 Authorization: `Bearer ${ token }`
             });
-            setProductsArr(productList.products);
-            console.log(productsArr)
+            setSalesArr(salesList.sales);
+            console.log(salesArr);
         } catch (e){
             console.log(e);
         }
     }, [token, request]);
 
     useEffect(() => {
-        getProductsList()
-    }, [getProductsList]);
+        getSalesList()
+    }, [getSalesList]);
 
     useEffect(() => {
         message(error);
@@ -38,10 +38,10 @@ export const ProductsPage = () => {
         return <Loader />
     }
 
-       return (
-           <>
-               { !loading && productsArr && <Products products={productsArr} getProductsList={getProductsList}/>}
-               <NavLink to="/addProduct" ><button className="btn">Добавить продукт</button></NavLink> 
-           </>
-       )
+    return (
+        <>
+            { !loading && salesArr && <Sales salesArr={salesArr} getSalesList={getSalesList}/>}
+            <NavLink to="/addSale" ><button className="btn">Добавить продажу</button></NavLink>
+        </>
+    )
 }

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {useHttp} from "../hooks/http.hook";
 import {useMessage} from "../hooks/message.hook";
-import {NavLink} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 export const RegisterPage = () => {
+    const history = useHistory();
     const message = useMessage();
     const { loading, error, request, clearError } = useHttp();
     const [form, setForm] = useState({
@@ -21,6 +22,7 @@ export const RegisterPage = () => {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register', 'POST', {...form});
+            history.push('/');
             console.log(data);
         } catch (e) {}
     };

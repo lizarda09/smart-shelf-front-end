@@ -11,6 +11,7 @@ export const Users = ({ users }) => {
     return (
         <div>
             <Search />
+            <h5 className="center">Список всех пользователей</h5>
             <table className="striped">
                 <thead>
                 <tr>
